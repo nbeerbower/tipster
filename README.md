@@ -1,0 +1,2 @@
+# tipster
+Tipster
