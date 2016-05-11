@@ -1,0 +1,44 @@
+.tipcontainer {
+    width:75%;
+    border:1px solid #3498db;
+    margin: 0 auto;
+    float: right;
+}
+.tipcontainer div {
+    width:100%;
+}
+.tipcontainer .tipheader {
+    background-color:#3498db;
+    padding: 2px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.tipcontainer .tipheader span {
+	color: #FFFFFF;
+}
+.tipcontainer .tipcontent {
+    display: none;
+    padding : 5px;
+}
+
+.submitcontainer {
+    width:23%;
+    border:1px solid #3498db;
+    margin: 0 auto;
+    float: left;
+}
+.submitcontainer .submitheader {
+    background-color:#3498db;
+    padding: 2px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.submitcontainer .submitheader span {
+	color: #FFFFFF;
+}
+
+.voteText {
+	color: #3498db;
+	font-size:150%;
+	margin-left:5px;
+}
