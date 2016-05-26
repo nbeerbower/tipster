@@ -3,10 +3,12 @@ $(document).ready(function(){
 	getTips($( "#sortSelector" ).val());
 });
 
+// submit the tip
 $( "#submitBtn" ).click(function() {
 	sendTip();
 });
 
+// get tips from the database and populate the container
 function getTips(order){
 	$.ajax({
 		type: "GET",
@@ -34,18 +36,18 @@ function sendTip() {
 	form_data.append('description', $("#description").val());
 	form_data.append('author', $("#author").val());
 	$.ajax({
-				url: 'tips/upload.php', // point to server-side PHP script 
-				dataType: 'text',  // what to expect back from the PHP script, if anything
-				cache: false,
-				contentType: false,
-				processData: false,
-				data: form_data,                         
-				type: 'post',
-				success: function(php_script_response){
-					if (php_script_response != "") {
-						alert(php_script_response);
-					}
+			url: 'tips/upload.php',
+			dataType: 'text',
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: form_data,                         
+			type: 'post',
+			success: function(php_script_response){
+				if (php_script_response != "") {
+					alert(php_script_response);
 				}
+			}
 	 });
 	// asynchronously reset inputs
 	$("#title").prop("value", "");
@@ -54,28 +56,29 @@ function sendTip() {
 	alert("Your tip was submitted for approval.");
 }
 
+// expand the tip on click
 $('.tipcontainer').on('click', '.tipheader', function (){
+	// get the header that was clicked
 	var header = $(this);
-    //getting the next element
+    // get the element following the header (the actual tip info)
     var content = header.next();
-    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+    // toggle slide animation
     content.slideToggle(500, function () {
-        //execute this after slideToggle is done
-        //change text of header based on visibility of content div
         header.find("#expand").text(function () {
-            //change text based on condition
+            // change the +/- if the tip is open or not
             return content.is(":visible") ? "-" : "+";
         });
     });
 });
 
+// submit the user's vote
 $('.tipcontainer').on('click', '.thanks', function (){
 	var thanksBut = $(this);
 	var form_data = new FormData();
 	form_data.append('tip_id', thanksBut.attr('id').substr(5));
 	$.ajax({
-				url: 'tips/vote.php', // point to server-side PHP script 
-				dataType: 'text',  // what to expect back from the PHP script, if anything
+				url: 'tips/vote.php',
+				dataType: 'text',
 				cache: false,
 				contentType: false,
 				processData: false,
@@ -88,5 +91,6 @@ $('.tipcontainer').on('click', '.thanks', function (){
 });
 
 $( "#sortSelector" ).change(function() {
+	// Get new tips on sort change
 	getTips($( "#sortSelector" ).val());
 });

@@ -9,15 +9,15 @@
 		<link rel="shortcut icon" href="assets/ico/favicon.png">
 
 		<!-- CSS Styling -->
-		<link href="assets/tips/tips.css" rel="stylesheet">
+		<link href="assets/css/tips.css" rel="stylesheet">
 	</head>
 
 	<body>
 		<?php
 			if (isset($_GET['approve'])) {
-				require_once 'credentials.php';
+				require_once 'tips/config.php';
 				$id = $_GET['approve'];
-				$db_connection = new mysqli( DB_HOST, DB_USER, DB_PASS, DB_NAME);
+				$db_connection = new mysqli( DBHOST, DBUSER, DBPASS, DBNAME);
 				$db_connection->query( "SET NAMES 'UTF8'" );
 				
 				$statement = $db_connection->prepare("SELECT title FROM tips WHERE id=?");
@@ -39,7 +39,7 @@
 					echo '<center><h1>There was an error with your request.</h1></center>';
 				}
 				
-				echo "<center><a href='tips.php'>Return to Tips Section</a></center>";
+				echo "<center><a href='index.php'>Back to Tipster</a></center>";
 			
 				$db_connection->close();
 			} else {
@@ -58,12 +58,12 @@
 				<div class="submitheader"><span>Submit a Tip</span></div>
 				<div style="padding: 5px;">
 					<span><strong>Title</strong></span>
-					<input id="title" name="title" placeholder="" class="form-control input-md" required type="text">
+					<input id="title" name="title" placeholder="" class="form-control input-md" required type="text" style="width: 95%;">
 					<span><strong>Description</strong></span>
-					<textarea class="form-control" id="description" name="description" style="resize: none; height: 200px;"></textarea>
+					<textarea class="form-control" id="description" name="description" style="width: 95%; resize: none; height: 200px;"></textarea>
 					<span><strong>Author</strong></span>
 					<input id="author" name="author" placeholder="Anonymous" class="form-control input-md" type="text">
-					<input type="submit" id="submitBtn" value="Submit">
+					<input type="submit" id="submitBtn" value="Submit" style="width: 95%;">
 				</div>
 			</div>
 			<div id="tipcontainer" class="tipcontainer">
@@ -77,7 +77,8 @@
 	<?php
 		if (!isset($_GET['approve'])) {
 	?>
-		<script type="text/javascript" src="assets/tips/tips.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="assets/js/tips.js"></script>
 	<?php
 		}
 	?>

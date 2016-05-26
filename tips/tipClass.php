@@ -4,7 +4,7 @@
  * 
  * Nicholas Beerbower 2016
  */
-require_once("../credentials.php");
+require_once("config.php");
 class tipClass {
 	public static function getTips($limit, $order) {
 		// order = 0 by most votes
@@ -24,10 +24,8 @@ class tipClass {
 		// TODO: Implement limit and order
 		$arr = array();
 		$jsonData = '{"results":[';
-		$db_connection = new mysqli( DB_HOST, DB_USER, DB_PASS, DB_NAME);
+		$db_connection = new mysqli( DBHOST, DBUSER, DBPASS, DBNAME);
 		$db_connection->query( "SET NAMES 'UTF8'" );
-		// TODO: nested query to get # of votes by count
-		//$statement = $db_connection->prepare( "SELECT id, title, description, author, submit_time FROM tips WHERE approved=1 ORDER BY ". $orderStr ." LIMIT 100");
 		$statement = $db_connection->prepare( "SELECT tips.id, title, description, author, submit_time, count(tip_votes.tip_id) as votes FROM tips LEFT JOIN tip_votes ON (tips.id=tip_votes.tip_id) WHERE approved=1 GROUP BY tips.id ORDER BY ". $orderStr ." LIMIT 100");
 		$statement->execute();
 		$statement->bind_result( $id, $title, $description, $author, $submit_time, $votes );
@@ -51,7 +49,7 @@ class tipClass {
 	public static function sendTip( $title, $description, $author ) {
 		if ( $title != "" && $description != "" ) {
 			if ($author == "") $author = "Anonymous";
-			$db_connection = new mysqli( DB_HOST, DB_USER, DB_PASS, DB_NAME);
+			$db_connection = new mysqli( DBHOST, DBUSER, DBPASS, DBNAME);
 			$db_connection->query( "SET NAMES 'UTF8'" );
 			$statement = $db_connection->prepare( "INSERT INTO tips( title, description, author ) VALUES(?, ?, ?)");
 			$statement->bind_param( 'sss', $title, $description, $author );
@@ -65,17 +63,12 @@ class tipClass {
 			$statement->fetch();
 			$statement->close();
 			
-			$emailQuery = "SELECT id, email FROM administrative_users;"; 
-			$emailResult = $db_connection->query($emailQuery);
-			
-			$subject = "Centre County MHID Tip Submission Request";
-			$link = "http://" . CURRENT_DOMAIN . "/tips.php?approve=" . $id . "&code=" . md5($title);
+			$subject = "Tipster Approval Request";
+			$link = "http://" . CURRENT_DOMAIN . "/index.php?approve=" . $id . "&code=" . md5($title);
 			$message = "<span><strong>Title</strong></span><p>".$title."</p><span><strong>Description</strong></span><p>".$description."</p><span><strong>Author</strong></span><p>".$author."</p></br><a href='".$link."'>Click here to approve this tip!</a>";
 			$headers = "From: noreply@" . CURRENT_DOMAIN . "\r\n" . "X-Mailer: PHP/" . phpversion() . "\r\nMIME-Version: 1.0\r\nContent-Type: text/html; charset=ISO-8859-1\r\n";
 
-			while($row = $emailResult->fetch_assoc()) {
-				mail($row['email'], $subject, $message, $headers);
-			}
+			mail(ADMIN_EMAIL, $subject, $message, $headers);
 			
 			$db_connection->close();
 		}
