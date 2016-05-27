@@ -1,10 +1,10 @@
 <?php
-	require_once("../credentials.php");
+	require_once("config.php");
 
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$tip_id = $_POST['tip_id'];
 	
-	$db_connection = new mysqli( DB_HOST, DB_USER, DB_PASS, DB_NAME);
+	$db_connection = new mysqli( DBHOST, DBUSER, DBPASS, DBNAME);
 	$db_connection->query( "SET NAMES 'UTF8'" );
 	
 	$statement = $db_connection->prepare( "SELECT count(*) FROM tip_votes WHERE tip_id=? AND ip_addr=?");
