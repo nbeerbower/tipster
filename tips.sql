@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS `tips` (
 	`description` text,
 	`author` varchar(255),
 	`approved` tinyint(1),
+	`submit_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY( `id` )
 );
 
