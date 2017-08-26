@@ -11,4 +11,4 @@ The actual layout of the example site and code are broken/rushed, but the underl
 2. Configure /tips/config.php for your site and database
 
 ## Demo Site
-http://tipster.dankr.me/
+https://nbeerbower.com/projects/tipster/
