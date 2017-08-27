@@ -20,10 +20,10 @@ function getTips(order){
 		var html = "";
 		for (var i = 0; i < jsonLength; i++) {
 			var result = jsonData.results[i];
-			html += '<div id="thead-'+ result.id +'" class="tipheader"><span>'+ result.title +'</span><span id="expand" style="float: right;font-size:180%;">+</span></div>'
+			html += '<div id="thead-'+ result.id +'" class="tipheader"><span>'+ result.title +'</span><span id="expand" style="float: right;">+</span></div>'
 			html += '<div id="tcon-'+ result.id +'" class="tipcontent">'
-			html += '<p style="float:left; color:gray;"><small>Submitted by ' + result.author + '</small></p><p style="float:right; color:gray;"><small>' + result.submit_time + '</small>'
-			html += '</p><hr style="height:1px; visibility:hidden;" /><p>'+ result.description +'</p>'
+			html += '<span style="float:left; color:gray;"><small>Submitted by ' + result.author + '</small></span><span style="float:right; color:gray;"><small>' + result.submit_time + '</small></span>'
+			html += '<hr style="height:1px; visibility:hidden;" /><p>'+ result.description +'</p>'
 			html += '<div align="right"><button class="thanks" id="tbut-'+ result.id +'" type="button">Thanks!</button><span class="voteText">'+result.votes+'</span></div></div>'
 		}
 		$('#tipcontainer').html(html);
@@ -41,11 +41,11 @@ function sendTip() {
 			cache: false,
 			contentType: false,
 			processData: false,
-			data: form_data,                         
+			data: form_data,
 			type: 'post',
-			success: function(php_script_response){
-				if (php_script_response != "") {
-					alert(php_script_response);
+			success: function(response){
+				if (response != "") {
+					alert(response);
 				}
 			}
 	 });
@@ -82,7 +82,7 @@ $('.tipcontainer').on('click', '.thanks', function (){
 				cache: false,
 				contentType: false,
 				processData: false,
-				data: form_data,                         
+				data: form_data,
 				type: 'post',
 				success: function(newVotes){
 					thanksBut.next().text(newVotes);

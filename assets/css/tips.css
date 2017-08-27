@@ -1,29 +1,27 @@
 .tipcontainer {
-    width:75%;
-    border:1px solid #3498db;
+    width: 75%;
+    border: 1px solid #3498db;
     margin: 0 auto;
     float: right;
 }
 .tipcontainer div {
-    width:100%;
+    width: 100%;
 }
 .tipcontainer .tipheader {
-    background-color:#3498db;
-    padding: 2px;
+    background-color: #3498db;
     cursor: pointer;
     font-weight: bold;
 }
 .tipcontainer .tipheader span {
-	color: #FFFFFF;
+    color: #FFFFFF;
 }
 .tipcontainer .tipcontent {
     display: none;
-    padding : 5px;
 }
 
 .submitcontainer {
-    width:23%;
-    border:1px solid #3498db;
+    width: 23%;
+    border: 1px solid #3498db;
     margin: 0 auto;
     float: left;
 }
@@ -34,11 +32,11 @@
     font-weight: bold;
 }
 .submitcontainer .submitheader span {
-	color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 .voteText {
-	color: #3498db;
-	font-size:150%;
-	margin-left:5px;
+    color: #3498db;
+    font-size: 150%;
+    margin-left: 5px;
 }
